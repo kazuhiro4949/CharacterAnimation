@@ -23,7 +23,7 @@ class ViewController: UIViewController {
         animView.text = "You gods, will give us. Some faults to make us men."
         animView.font = UIFont.systemFont(ofSize: 17)
         animView.frame.origin = CGPoint(x: 50, y: 100)
-        animView.frame.size.width = 400
+        animView.frame.size.width = 300
         self.view.addSubview(animView)
         animView.create()
         animView.frame.size = animView.intrinsicContentSize
