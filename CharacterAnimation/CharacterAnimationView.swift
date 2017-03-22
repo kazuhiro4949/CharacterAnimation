@@ -8,24 +8,52 @@
 
 import UIKit
 
-class CharacterAnimationView: UIView {
+protocol CharacterAnimator: class {
+    var font: UIFont { get set }
+    var textColor: UIColor  { get set }
+    var layers: [CAShapeLayer] { get }
+    
+    func shaffle() -> [CAShapeLayer]
+}
+
+extension CharacterAnimator {
+    func shaffle() -> [CAShapeLayer] {
+        var shaffleLayers = layers
+        for index in 0..<shaffleLayers.count {
+            let newIndex = Int(arc4random_uniform(UInt32(shaffleLayers.count - 1)))
+            if index != newIndex {
+                swap(&shaffleLayers[index], &shaffleLayers[newIndex])
+            }
+        }
+        return shaffleLayers
+    }
+}
+
+class CharacterAnimationView: UIView, CharacterAnimator {
 
     var font: UIFont = UIFont.systemFont(ofSize: 17)
     var text: String?
     var textColor: UIColor = UIColor.black
+    private(set) var layers = [CAShapeLayer]()
     
-    private var letterLayer = [CAShapeLayer]()
     private var suggestedSize = CGSize.zero
     
     func create() {
         guard let text = text else {
             return
         }
+
+        layers.forEach {
+            $0.removeAllAnimations()
+            //$0.removeFromSuperlayer()
+        }
         
         layer.sublayers?.forEach {
             $0.removeAllAnimations()
             $0.removeFromSuperlayer()
         }
+        
+        layer.removeAllAnimations()
         
         var letterPaths = [UIBezierPath]()
         var letterPositions = [CGPoint]()
@@ -98,66 +126,19 @@ class CharacterAnimationView: UIView {
 
             containerLayer.addSublayer(glyphLayer)
             
-            letterLayer.append(glyphLayer)
-        }
-    }
-    
-    func fadeout(shafflelayers: [CAShapeLayer]) {
-        shafflelayers.enumerated().forEach { (index, layer) in
-            let anim = CABasicAnimation()
-            anim.keyPath = "opacity"
-            anim.toValue = 0
-            anim.duration = CFTimeInterval(0.5)
-            anim.beginTime = CACurrentMediaTime() + CFTimeInterval(index) * CFTimeInterval(0.02)
-            anim.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
-            anim.isRemovedOnCompletion = false
-            anim.fillMode = kCAFillModeForwards
-            layer.add(anim, forKey: "opacity")
-        }
-    }
-    
-    func falldown(shaffleLayers: [CAShapeLayer]) {
-        shaffleLayers.enumerated().forEach { (index, layer) in
-            let anim = CABasicAnimation(keyPath: "position")
-            var newPoint = layer.position
-            newPoint.y -= 50
-            anim.toValue = NSValue(cgPoint: newPoint)
-            
-            let colorAnim = CABasicAnimation(keyPath: "opacity")
-            colorAnim.toValue = NSNumber(value: 0)
-            
-            let arc: Double =  M_PI * (-500 + Double(arc4random_uniform(1000))) / 1000
-            let translateAnim = CABasicAnimation(keyPath: "transform.rotation.z")
-            translateAnim.toValue = NSNumber(value: arc)
-            
-            let groupAnim = CAAnimationGroup()
-            groupAnim.duration = CFTimeInterval(0.5)
-            groupAnim.beginTime = CACurrentMediaTime() + CFTimeInterval(index) * CFTimeInterval(0.02)
-            groupAnim.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
-            groupAnim.isRemovedOnCompletion = false
-            groupAnim.fillMode = kCAFillModeForwards
-            groupAnim.animations = [anim, colorAnim, translateAnim]
-            
-            layer.add(groupAnim, forKey: "group")
-        }
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
-        var shaffleLayers = letterLayer
-        for index in 0..<shaffleLayers.count {
-            let newIndex = Int(arc4random_uniform(UInt32(shaffleLayers.count - 1)))
-            if index != newIndex {
-                swap(&shaffleLayers[index], &shaffleLayers[newIndex])
-            }
+            layers.append(glyphLayer)
         }
         
-        fadeout(shafflelayers: shaffleLayers)
+        setNeedsLayout()
+        layoutIfNeeded()
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        bounds.size = suggestedSize
     }
     
     override var intrinsicContentSize: CGSize {
         return suggestedSize
     }
-
-
 }

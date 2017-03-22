@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B1426061E8225F500FA769D /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1426051E8225F500FA769D /* Functions.swift */; };
 		2B303F071E81910700376956 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B303F061E81910700376956 /* AppDelegate.swift */; };
 		2B303F091E81910700376956 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B303F081E81910700376956 /* ViewController.swift */; };
 		2B303F0C1E81910700376956 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2B303F0A1E81910700376956 /* Main.storyboard */; };
@@ -35,6 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2B1426051E8225F500FA769D /* Functions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
 		2B303F031E81910700376956 /* CharacterAnimation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CharacterAnimation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B303F061E81910700376956 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2B303F081E81910700376956 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -102,6 +104,7 @@
 				2B303F061E81910700376956 /* AppDelegate.swift */,
 				2B303F081E81910700376956 /* ViewController.swift */,
 				2B303F341E81911B00376956 /* CharacterAnimationView.swift */,
+				2B1426051E8225F500FA769D /* Functions.swift */,
 				2B303F0A1E81910700376956 /* Main.storyboard */,
 				2B303F0D1E81910700376956 /* Assets.xcassets */,
 				2B303F0F1E81910700376956 /* LaunchScreen.storyboard */,
@@ -268,6 +271,7 @@
 				2B303F091E81910700376956 /* ViewController.swift in Sources */,
 				2B303F351E81911B00376956 /* CharacterAnimationView.swift in Sources */,
 				2B303F071E81910700376956 /* AppDelegate.swift in Sources */,
+				2B1426061E8225F500FA769D /* Functions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -518,6 +522,7 @@
 				2B303F2D1E81910700376956 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		2B303F2E1E81910700376956 /* Build configuration list for PBXNativeTarget "CharacterAnimationTests" */ = {
 			isa = XCConfigurationList;
@@ -526,6 +531,7 @@
 				2B303F301E81910700376956 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		2B303F311E81910700376956 /* Build configuration list for PBXNativeTarget "CharacterAnimationUITests" */ = {
 			isa = XCConfigurationList;
@@ -534,6 +540,7 @@
 				2B303F331E81910700376956 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
